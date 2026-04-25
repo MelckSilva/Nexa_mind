@@ -42,7 +42,7 @@ meu-projeto/
 ├── .env.example          
 ├── .gitignore            
 ├── README.md             
-
+```
 ## 👥 Equipe
 
 **Integrantes:**
