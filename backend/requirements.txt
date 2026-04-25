@@ -1,0 +1,20 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+
+# Banco de Dados (PostgreSQL)
+sqlalchemy
+psycopg2-binary
+
+# Inteligência Artificial e Processamento
+langchain
+langchain-community
+langchain-openai    # Ou outra biblioteca de modelo de linguagem (LLM)
+pypdf               # Essencial para extrair texto de PDFs
+python-multipart    # Necessário para receber uploads de arquivos 
+
+# Utilidades
+python-dotenv       # Para gerenciar o arquivo .env
+pydantic[email]     # Para validação de esquemas (como o e-mail do Usuário)
+passlib[bcrypt]     # Para hash de senhas de segurança
+python-jose[cryptography] # Para geração de tokens JWT (Login)
