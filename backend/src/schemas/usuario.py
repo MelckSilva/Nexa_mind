@@ -2,7 +2,7 @@ from datetime import date
 from typing import Optional
 from pydantic import BaseModel, EmailStr, Field
 from pydantic.config import ConfigDict
-
+from uuid import UUID
 class UsuarioCreate(BaseModel):
     nome: str = Field(min_length=1, max_length=150)
     email: EmailStr
@@ -14,7 +14,7 @@ class UsuarioCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 class UsuarioResponse(BaseModel):
-    id: str
+    id: UUID
     nome: str
     email: EmailStr
     data_nascimento: Optional[date] = None

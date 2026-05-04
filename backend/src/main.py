@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.routes import usuario
+from .routes import usuario
 
 app = FastAPI()
 

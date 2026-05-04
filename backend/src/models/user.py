@@ -24,5 +24,5 @@ class Usuario(Base):
     ativo: Mapped[bool] = mapped_column(Boolean, default=True)
 
     # Relacionamentos
-    disciplinas = relationship("Disciplina", back_populates="usuario", cascade="all, delete")
-    sessoes = relationship("SessaoChat", back_populates="usuario", cascade="all, delete")
+   # disciplinas = relationship("Disciplina", back_populates="usuario", cascade="all, delete")
+    #sessoes = relationship("SessaoChat", back_populates="usuario", cascade="all, delete")
