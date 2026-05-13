@@ -25,3 +25,16 @@ env/
 *.swo
 .DS_Store
 Thumbs.db
+# ===== Adições da camada de IA =====
+
+# Garante que .env em qualquer subpasta seja ignorado
+**/.env
+
+# Persistência do ChromaDB (Fase 4)
+ai/data/chroma/
+
+# Cache de modelos baixados pelo sentence-transformers (~80MB)
+.cache/
+
+# Uploads do backend (Fase 8)
+uploads/
