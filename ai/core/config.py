@@ -20,6 +20,17 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL: str = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
+# === Embeddings (A3, A4) ===
+EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+
+# === ChromaDB ===
+# Caminho absoluto pro Chroma persistir os dados.
+# Resolvido a partir da raiz do projeto pra funcionar de qualquer lugar.
+_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+CHROMA_PATH: str = os.path.abspath(
+    os.path.join(_PROJECT_ROOT, os.getenv("CHROMA_PATH", "ai/data/chroma"))
+)
+
 # === Chunking (vamos usar na Fase 3) ===
 CHUNK_SIZE: int = int(os.getenv("CHUNK_SIZE", "1000"))
 CHUNK_OVERLAP: int = int(os.getenv("CHUNK_OVERLAP", "150"))
