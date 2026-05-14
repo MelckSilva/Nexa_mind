@@ -1,0 +1,9 @@
+Programação Orientada a Objetos (POO) é um paradigma de programação baseado no conceito de "objetos", que podem conter dados na forma de campos e código na forma de procedimentos.
+
+Os quatro pilares da POO são: encapsulamento, herança, polimorfismo e abstração. O encapsulamento é a prática de manter os dados privados dentro de uma classe.
+
+A herança permite que uma classe filha herde atributos e métodos de uma classe pai, promovendo reutilização de código.
+
+O polimorfismo permite que objetos de classes diferentes sejam tratados como objetos de uma classe comum.
+
+A abstração esconde a complexidade interna, expondo apenas o que é necessário.
