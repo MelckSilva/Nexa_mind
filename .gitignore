@@ -1,40 +1,53 @@
-node_modules/
-.pnp
-.pnp.js
-dist/
-build/
-.next/
-out/
-coverage/
+# Ambientes virtuais Python
+.venv/
+venv/
+env/
+
+# Variáveis de ambiente
 .env
-*.log
-logs/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+*.env
+backend/.env
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
-venv/
-.venv/
-env/
-.vscode/
-.idea/
-*.swp
-*.swo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Uploads de arquivos acadêmicos
+uploads/
+backend/uploads/
+
+# Dados locais da IA / ChromaDB
+ai/data/chroma/
+ai/data/**/*.sqlite3
+ai/data/**/*.sqlite
+ai/data/**/*.parquet
+ai/data/**/*.bin
+
+# Modelos/cache locais
+.cache/
+models/
+sentence_transformers/
+
+# Testes e utilitários locais
+ai/teste_*.py
+scripts/check_backend.py
+
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Logs
+*.log
+logs/
+
+# Sistema operacional / editor
 .DS_Store
 Thumbs.db
-# ===== Adições da camada de IA =====
-
-# Garante que .env em qualquer subpasta seja ignorado
-**/.env
-
-# Persistência do ChromaDB (Fase 4)
-ai/data/chroma/
-
-# Cache de modelos baixados pelo sentence-transformers (~80MB)
-.cache/
-
-# Uploads do backend (Fase 8)
-uploads/
+.vscode/
+.idea/

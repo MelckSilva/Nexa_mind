@@ -10,7 +10,11 @@ psycopg2-binary
 langchain
 langchain-community
 langchain-openai
+groq
+chromadb
+sentence-transformers
 pypdf
+python-docx
 python-multipart
 
 # Utilidades
