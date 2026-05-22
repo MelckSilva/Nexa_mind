@@ -1,15 +1,26 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from uuid import UUID
 from ..dependencies import get_db
 from ..schemas.usuario import UsuarioCreate, UsuarioUpdate, UsuarioResponse
-from ..services.usuario import criar_usuario, buscar_usuario, atualizar_usuario, deletar_usuario
+from ..services.usuario import criar_usuario, buscar_usuario, buscar_usuario_por_email, atualizar_usuario, deletar_usuario, _verificar_senha
 
 router = APIRouter()
 
 @router.post("/usuarios", response_model=UsuarioResponse, status_code=201)
 def criar(user: UsuarioCreate, db: Session = Depends(get_db)):
-    return criar_usuario(db, user.nome, user.email, user.senha, user.data_nascimento, user.curso, user.instituicao)
+    try:
+        return criar_usuario(db, user.nome, user.email, user.senha, user.data_nascimento, user.curso, user.instituicao)
+    except IntegrityError:
+        db.rollback()
+        # Email já existe — verificar se a senha está correta (login)
+        usuario_existente = buscar_usuario_por_email(db, user.email)
+        if usuario_existente and _verificar_senha(user.senha, usuario_existente.senha_hash):
+            # Senha correta — retornar usuário
+            return usuario_existente
+        # Senha incorreta ou usuário não encontrado
+        raise HTTPException(status_code=401, detail="Email ou senha inválidos")
 
 @router.get("/usuarios/{usuario_id}", response_model=UsuarioResponse)
 def buscar(usuario_id: UUID, db: Session = Depends(get_db)):

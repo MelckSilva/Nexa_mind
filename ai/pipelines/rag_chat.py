@@ -87,7 +87,9 @@ def responder_pergunta(
     )
 
     # 3. Chama o Groq
-    resposta_texto = chat_complete(mensagens, temperature=0.3).strip()
+    # Temperature aumentada de 0.3 para 0.6 para permitir respostas mais abrangentes
+    # e criativas, além de complementar o contexto com conhecimento geral
+    resposta_texto = chat_complete(mensagens, temperature=0.6).strip()
 
     # 4. Monta as fontes (chunks unicos por material)
     fontes_vistas: set[str] = set()

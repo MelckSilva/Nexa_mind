@@ -27,6 +27,9 @@ def criar_usuario(db: Session, nome: str, email: str, senha: str, data_nasciment
 def buscar_usuario(db: Session, usuario_id: uuid.UUID):
     return db.query(Usuario).filter(Usuario.id == usuario_id).first()
 
+def buscar_usuario_por_email(db: Session, email: str):
+    return db.query(Usuario).filter(Usuario.email == email).first()
+
 def atualizar_usuario(db: Session, usuario_id: uuid.UUID, **dados):
     usuario = buscar_usuario(db, usuario_id)
     if not usuario:
