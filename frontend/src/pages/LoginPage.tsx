@@ -21,6 +21,9 @@ export default function LoginPage({ onLogin }: Props) {
     nome: "",
     email: "",
     senha: "",
+    data_nascimento: "",
+    curso: "",
+    instituicao: "",
   })
 
   // Atualiza só o campo que mudou, mantendo o resto igual
@@ -31,14 +34,19 @@ export default function LoginPage({ onLogin }: Props) {
 
   // ─── Cadastro ──────────────────────────────────────────────────────────────
   async function cadastrar() {
+    const payload = {
+      nome: form.nome.trim(),
+      email: form.email.trim(),
+      senha: form.senha,
+      ...(form.data_nascimento ? { data_nascimento: form.data_nascimento } : {}),
+      ...(form.curso.trim() ? { curso: form.curso.trim() } : {}),
+      ...(form.instituicao.trim() ? { instituicao: form.instituicao.trim() } : {}),
+    }
+
     const res = await fetch(`${API_URL}/usuarios`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nome: form.nome,
-        email: form.email,
-        senha: form.senha,
-      }),
+      body: JSON.stringify(payload),
     })
 
     if (!res.ok) {
@@ -91,7 +99,7 @@ export default function LoginPage({ onLogin }: Props) {
 
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#0d0d0d] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#0d0d0d] flex items-center justify-center px-4 py-8">
 
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-700/20 blur-[120px] rounded-full pointer-events-none" />
 
@@ -128,14 +136,42 @@ export default function LoginPage({ onLogin }: Props) {
           <form onSubmit={handleSubmit} className="space-y-4">
 
             {!isLogin && (
-              <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Nome completo</label>
-                <input
-                  type="text" name="nome" value={form.nome} onChange={handleChange}
-                  placeholder="Seu nome"
-                  className="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-purple-500 transition-colors"
-                />
-              </div>
+              <>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1.5">Nome completo</label>
+                  <input
+                    type="text" name="nome" value={form.nome} onChange={handleChange}
+                    placeholder="Seu nome"
+                    className="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1.5">Data de nascimento</label>
+                  <input
+                    type="date" name="data_nascimento" value={form.data_nascimento} onChange={handleChange}
+                    className="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1.5">Curso</label>
+                  <input
+                    type="text" name="curso" value={form.curso} onChange={handleChange}
+                    placeholder="Ex: Ciência da Computação"
+                    className="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1.5">Instituição</label>
+                  <input
+                    type="text" name="instituicao" value={form.instituicao} onChange={handleChange}
+                    placeholder="Ex: Unisagrado"
+                    className="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+              </>
             )}
 
             <div>
