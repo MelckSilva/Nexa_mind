@@ -60,11 +60,13 @@ export default function LoginPage({ onLogin }: Props) {
   // ─── Login ─────────────────────────────────────────────────────────────────
   // Tenta criar usuário — se o email já existe, verifica a senha (login)
   async function logar() {
-    const res = await fetch(`${API_URL}/usuarios`, {
+    const res = await fetch(`${API_URL}/usuarios/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        nome: "Usuário",
+
+
+
         email: form.email,
         senha: form.senha,
       }),

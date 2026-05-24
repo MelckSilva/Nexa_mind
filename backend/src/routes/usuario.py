@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from uuid import UUID
 from ..dependencies import get_db
-from ..schemas.usuario import UsuarioCreate, UsuarioUpdate, UsuarioResponse
+from ..schemas.usuario import UsuarioCreate, UsuarioLogin, UsuarioUpdate, UsuarioResponse
 from ..services.usuario import criar_usuario, buscar_usuario, buscar_usuario_por_email, atualizar_usuario, deletar_usuario, _verificar_senha
 
 router = APIRouter()
@@ -14,13 +14,14 @@ def criar(user: UsuarioCreate, db: Session = Depends(get_db)):
         return criar_usuario(db, user.nome, user.email, user.senha, user.data_nascimento, user.curso, user.instituicao)
     except IntegrityError:
         db.rollback()
-        # Email já existe — verificar se a senha está correta (login)
-        usuario_existente = buscar_usuario_por_email(db, user.email)
-        if usuario_existente and _verificar_senha(user.senha, usuario_existente.senha_hash):
-            # Senha correta — retornar usuário
-            return usuario_existente
-        # Senha incorreta ou usuário não encontrado
+        raise HTTPException(status_code=409, detail="Email já cadastrado")
+
+@router.post("/usuarios/login", response_model=UsuarioResponse)
+def login(credenciais: UsuarioLogin, db: Session = Depends(get_db)):
+    usuario = buscar_usuario_por_email(db, credenciais.email)
+    if not usuario or not _verificar_senha(credenciais.senha, usuario.senha_hash):
         raise HTTPException(status_code=401, detail="Email ou senha inválidos")
+    return usuario
 
 @router.get("/usuarios/{usuario_id}", response_model=UsuarioResponse)
 def buscar(usuario_id: UUID, db: Session = Depends(get_db)):

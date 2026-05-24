@@ -13,6 +13,12 @@ class UsuarioCreate(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
+class UsuarioLogin(BaseModel):
+    email: EmailStr
+    senha: str = Field(min_length=8, max_length=128)
+
+    model_config = ConfigDict(extra="forbid")
+
 class UsuarioResponse(BaseModel):
     id: UUID
     nome: str
